@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/usersFragment">
+
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.example.githubusers.ui.UsersFragment"
+        android:label="@string/title_users_fragment" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.githubusers.ui.DetailsFragment"
+        android:label="@string/title_details_fragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.githubusers.ui.AboutFragment"
+        android:label="@string/title_about_fragment" />
+</navigation>
