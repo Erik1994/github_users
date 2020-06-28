@@ -1,4 +1,4 @@
-package com.example.githubusers.ui
+package com.example.githubusers.ui.users
 
 import android.content.Intent
 import android.os.Bundle

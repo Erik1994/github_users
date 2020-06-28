@@ -5,14 +5,14 @@
 
     <fragment
         android:id="@+id/usersFragment"
-        android:name="com.example.githubusers.ui.UsersFragment"
+        android:name="com.example.githubusers.ui.users.UsersFragment"
         android:label="@string/title_users_fragment" />
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.githubusers.ui.DetailsFragment"
+        android:name="com.example.githubusers.ui.details.DetailsFragment"
         android:label="@string/title_details_fragment" />
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.githubusers.ui.AboutFragment"
+        android:name="com.example.githubusers.ui.about.AboutFragment"
         android:label="@string/title_about_fragment" />
 </navigation>
