@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="small_text_size">19sp</dimen>
+    <dimen name="motion_text_size">25sp</dimen>
     <dimen name="fab_corner_radius">5dp</dimen>
+    <dimen name="rec_view_padding">6dp</dimen>
+    <dimen name="grid_item_padding">2dp</dimen>
+    <dimen name="motion_target_text_margin">8dp</dimen>
 </resources>

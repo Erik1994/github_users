@@ -18,6 +18,9 @@
     <string name="search">Search</string>
     <string name="share">Share</string>
 
+    <string name="github">Github</string>
+    <string name="users">Users</string>
+
     <string name="share_success_text">This github user App written by Erik.</string>
 
 </resources>

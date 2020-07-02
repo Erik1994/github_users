@@ -2,6 +2,7 @@ package com.example.githubusers.network
 
 import com.example.githubusers.data.User
 import com.example.githubusers.data.Users
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -14,19 +15,9 @@ import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.github.com/"
 
-interface UsersApiService {
-
-    @GET("users")
-    fun getUsers(): Deferred<List<Users>>
-
-
-    @GET("users/{login}")
-    fun getUser(@Query("login") login: String): Deferred<List<User>>
-}
-
 
 object UsersApi {
-    private lateinit var retrofit: Retrofit;
+    private lateinit var retrofit: Retrofit
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
@@ -39,12 +30,30 @@ object UsersApi {
 
         retrofit = Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttp.build())
             .baseUrl(BASE_URL)
             .build()
     }
 
-    fun <T> retrofitService(serviceType: Class<T>): T {
-        return retrofit.create(serviceType)
+
+    fun getRerofitService() = if(!this::retrofit.isInitialized) {
+        buildService()
+        retrofit.create(ApiService::class.java)
+    } else {
+        retrofit.create(ApiService::class.java)
     }
+
+
+}
+
+
+interface ApiService {
+
+    @GET("users")
+    suspend fun getUsers(): List<Users>
+
+
+    @GET("users/{login}")
+    suspend fun getUser(@Query("login") login: String): User
 }

@@ -10,8 +10,12 @@
        <KeyFrameSet>
            <KeyAttribute
                android:alpha="0.0"
-               app:framePosition="85"
-               app:motionTarget="@id/credits" />
+
+               app:motionTarget="@id/github" />
+           <KeyAttribute
+               android:alpha="0.0"
+
+               app:motionTarget="@id/users" />
            <KeyAttribute
                android:translationY="270dp"
                app:framePosition="100"
@@ -21,29 +25,43 @@
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@id/credits"
+            android:id="@id/github"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:alpha="0.0"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <Constraint
+            android:id="@id/users"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@id/credits"
+            android:id="@id/github"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/motion_target_text_margin"
             android:alpha="1.0"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <Constraint
+            android:id="@id/users"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/motion_target_text_margin"
             />
     </ConstraintSet>
 </MotionScene>

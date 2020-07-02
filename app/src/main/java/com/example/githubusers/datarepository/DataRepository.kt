@@ -1,15 +1,14 @@
 package com.example.githubusers.datarepository
 
+import androidx.lifecycle.liveData
+import com.example.githubusers.network.ApiHelper
 import com.example.githubusers.network.UsersApi
-import com.example.githubusers.network.UsersApiService
+import com.example.githubusers.network.resource.Resource
+import kotlinx.coroutines.Dispatchers
 
-object DataRepository {
-    private lateinit var service: Any
 
-    fun initFields() {
-        if(!this::service.isInitialized) {
-            service = UsersApi.retrofitService(UsersApiService::class.java)
-        }
-    }
+class DataRepository(private val apiHelper: ApiHelper) {
+
+    suspend fun getUsers() = apiHelper.getUsers()
 
 }

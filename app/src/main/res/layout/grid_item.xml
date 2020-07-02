@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <variable
+            name="users"
+            type="com.example.githubusers.data.Users" />
+    </data>
+
+    <ImageView
+        android:id="@+id/users_image"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:padding="@dimen/grid_item_padding"
+        app:imageUrl="@{users.avatarUrl}" />
+
+</layout>
