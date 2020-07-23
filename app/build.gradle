@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'koin'
 
 android {
     compileSdkVersion 29
@@ -24,7 +25,7 @@ android {
         }
     }
 
-    buildFeatures{
+    buildFeatures {
         dataBinding = true
         // for view binding :
         viewBinding = true
@@ -78,13 +79,13 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     //view model scope
-
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha05"
 
     //glide
-
     implementation "com.github.bumptech.glide:glide:$glide_version"
 
+
+    implementation "androidx.paging:paging-runtime:$paging_version"
 
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -93,5 +94,16 @@ dependencies {
 
     //interceptor
     implementation "com.squareup.okhttp3:logging-interceptor:$interceptor_version"
+
+    // Koin AndroidX Scope feature
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+
+    // Koin AndroidX ViewModel feature
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+
+    // Koin AndroidX Fragment Factory (unstable version)
+    implementation "org.koin:koin-androidx-fragment:$koin_version"
+
+
 
 }

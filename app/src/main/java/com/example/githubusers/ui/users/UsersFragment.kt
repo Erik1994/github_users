@@ -12,25 +12,20 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.githubusers.R
 import com.example.githubusers.databinding.FragmentUsersBinding
 import com.example.githubusers.network.ApiHelper
-import com.example.githubusers.network.UsersApi
 import com.example.githubusers.network.enum.Status
 import com.google.android.material.appbar.AppBarLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UsersFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UsersFragment : Fragment() {
     private lateinit var binding: FragmentUsersBinding
 
-    private val viewModel: UsersViewModel by lazy {
-        ViewModelProvider(this, UsersViewModelFactory(ApiHelper(UsersApi.getRerofitService()))).get(
-            UsersViewModel::class.java
-        )
-    }
-
+//    private val viewModel: UsersViewModel by lazy {
+//        ViewModelProvider(this, UsersViewModelFactory(ApiHelper(UsersApi.getRerofitService()))).get(
+//            UsersViewModel::class.java
+//        )
+//    }
+    private val model: UsersViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,17 +53,17 @@ class UsersFragment : Fragment() {
         binding.lifecycleOwner = this
         // Giving the binding access to the UsersViewModel
         //val viewModelFactory = UsersViewModelFactory(ApiHelper(UsersApi.getRerofitService()))
-        binding.viewModel = viewModel//ViewModelProvider(this, viewModelFactory).get(UsersViewModel::class.java)
+        binding.viewModel = model//ViewModelProvider(this, viewModelFactory).get(UsersViewModel::class.java)
         binding.userRecyclerView.adapter = PhotoGridAdapter()
         bindData()
         coordinateMotion(view)
     }
 
     fun bindData() {
-        viewModel.usersResource.observe(viewLifecycleOwner, Observer {
+        model.usersResource.observe(viewLifecycleOwner, Observer {
             when(it.status) {
                 Status.LOADING -> print("loading")
-                Status.SUCCESS -> viewModel.setUsersList(it.data)
+                Status.SUCCESS -> model.setUsersList(it.data)
                 Status.ERROR -> print("error")
             }
         })

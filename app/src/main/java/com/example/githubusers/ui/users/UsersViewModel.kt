@@ -7,7 +7,7 @@ import com.example.githubusers.network.enum.Status
 import com.example.githubusers.network.resource.Resource
 import kotlinx.coroutines.*
 
-class UsersViewModel(private val dataRepository: DataRepository) : ViewModel() {
+class UsersViewModel(val dataRepository: DataRepository) : ViewModel() {
     private val _usersResource = MutableLiveData<Resource<List<Users>>>()
     private val _userListMutable = MutableLiveData<List<Users>>()
 
