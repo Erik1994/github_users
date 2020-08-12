@@ -7,15 +7,19 @@ import com.example.githubusers.network.enum.Status
 import com.example.githubusers.network.resource.Resource
 import kotlinx.coroutines.*
 
-class UsersViewModel(val dataRepository: DataRepository) : ViewModel() {
+class UsersViewModel(private val dataRepository: DataRepository) : ViewModel() {
     private val _usersResource = MutableLiveData<Resource<List<Users>>>()
     private val _userListMutable = MutableLiveData<List<Users>>()
+    private val _navigateToDetailsMutable = MutableLiveData<Users>()
 
     val usersResource: LiveData<Resource<List<Users>>>
         get() = _usersResource
 
     val userListLiveData: LiveData<List<Users>>
         get() = _userListMutable
+
+    val navigateToDetailsMutable: LiveData<Users>
+        get() = _navigateToDetailsMutable
 
 
     init {
@@ -26,7 +30,15 @@ class UsersViewModel(val dataRepository: DataRepository) : ViewModel() {
         _userListMutable.value = usersList
     }
 
-    fun getUsersData() {
+    fun naviGateToDetailsScreen(users: Users) {
+        _navigateToDetailsMutable.value = users
+    }
+
+    fun navigateToDetailsScreenComplete() {
+        _navigateToDetailsMutable.value = null
+    }
+
+    private fun getUsersData() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {

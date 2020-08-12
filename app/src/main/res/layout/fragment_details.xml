@@ -2,97 +2,216 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.githubusers.ui.details.DetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/outside_margin"
+            android:layout_marginTop="@dimen/outside_margin"
+            android:layout_marginEnd="@dimen/outside_margin"
+            app:circleImageUrl="@{viewModel.userMutableLiveData.avatarUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/name_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/username_text_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
 
         <TextView
-            android:id="@+id/username_text_view"
+            android:id="@+id/email_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/outside_margin"
+            android:layout_marginTop="@dimen/outside_margin"
+            android:layout_marginEnd="@dimen/inside_margin"
+            android:text="@string/user_email"
+            style="@style/details_text_view_style"
+            app:layout_constraintEnd_toStartOf="@+id/user_email_text_view"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_text_view" />
+
+        <TextView
+            android:id="@+id/user_email_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            android:layout_marginStart="@dimen/inside_margin"
+            android:layout_marginEnd="@dimen/outside_margin"
+            style="@style/details_text_view_style"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/email_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/name_text_view" />
+            android:text='@{viewModel.userMutableLiveData.email ?? "N/A"}'
+            app:layout_constraintStart_toEndOf="@+id/email_text_view"
+            app:layout_constraintTop_toTopOf="@+id/email_text_view" />
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="0dp"
+            android:id="@+id/name_text_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
+            android:layout_marginStart="@dimen/outside_margin"
+            android:layout_marginTop="@dimen/big_margin"
+            android:layout_marginEnd="@dimen/inside_margin"
+            android:text="@string/user_name"
+            style="@style/details_text_view_style"
+            app:layout_constraintEnd_toStartOf="@+id/user_name_text_view"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/user_name_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            android:layout_marginStart="@dimen/inside_margin"
+            android:layout_marginEnd="@dimen/outside_margin"
+            style="@style/details_text_view_style"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/name_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toTopOf="@+id/textView3" />
+            android:text='@{viewModel.userMutableLiveData.name ?? "N/A"}'
+            app:layout_constraintStart_toEndOf="@+id/name_text_view"
+            app:layout_constraintTop_toTopOf="@+id/name_text_view" />
 
         <TextView
-            android:id="@+id/textView5"
-            android:layout_width="0dp"
+            android:id="@+id/login_text_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toStartOf="@+id/textView6"
+            android:layout_marginTop="@dimen/outside_margin"
+            android:layout_marginEnd="@dimen/inside_margin"
+            android:text="@string/user_login"
+            style="@style/details_text_view_style"
+            app:layout_constraintEnd_toStartOf="@+id/user_login_text_view"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintStart_toStartOf="@+id/name_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/name_text_view" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/user_login_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            android:layout_marginStart="@dimen/inside_margin"
+            style="@style/details_text_view_style"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/login_text_view"
+            app:layout_constraintEnd_toEndOf="@+id/user_name_text_view"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
-            app:layout_constraintTop_toTopOf="@+id/textView5" />
+            android:text='@{viewModel.userMutableLiveData.username ?? "N/A"}'
+            app:layout_constraintStart_toEndOf="@+id/login_text_view"
+            app:layout_constraintTop_toTopOf="@+id/login_text_view" />
+
+        <TextView
+            android:id="@+id/location_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/outside_margin"
+            android:layout_marginTop="@dimen/outside_margin"
+            android:layout_marginEnd="@dimen/inside_margin"
+            android:text="@string/user_location"
+            style="@style/details_text_view_style"
+            app:layout_constraintEnd_toStartOf="@+id/user_location_text_view"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_text_view" />
+
+        <TextView
+            android:id="@+id/user_location_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/inside_margin"
+            android:layout_marginEnd="@dimen/outside_margin"
+            style="@style/details_text_view_style"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/location_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:text='@{viewModel.userMutableLiveData.location ?? "N/A"}'
+            app:layout_constraintStart_toEndOf="@+id/location_text_view"
+            app:layout_constraintTop_toTopOf="@+id/location_text_view" />
+
+        <TextView
+            android:id="@+id/followers_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/outside_margin"
+            android:layout_marginTop="@dimen/outside_margin"
+            android:layout_marginEnd="@dimen/inside_margin"
+            android:text="@string/user_followers"
+            style="@style/details_text_view_style"
+            app:layout_constraintEnd_toStartOf="@+id/user_followers_text_view"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_text_view" />
+
+        <TextView
+            android:id="@+id/user_followers_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/inside_margin"
+            android:layout_marginEnd="@dimen/outside_margin"
+            style="@style/details_text_view_style"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/followers_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:text='@{String.valueOf(viewModel.userMutableLiveData.followers) ?? "N/A"}'
+            app:layout_constraintStart_toEndOf="@+id/followers_text_view"
+            app:layout_constraintTop_toTopOf="@+id/followers_text_view" />
+
+        <TextView
+            android:id="@+id/following_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/outside_margin"
+            android:layout_marginTop="@dimen/outside_margin"
+            android:layout_marginEnd="@dimen/inside_margin"
+            android:text="@string/user_following"
+            style="@style/details_text_view_style"
+            app:layout_constraintEnd_toStartOf="@+id/user_following_text_view"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/followers_text_view" />
+
+        <TextView
+            android:id="@+id/user_following_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/inside_margin"
+            android:layout_marginEnd="@dimen/outside_margin"
+            style="@style/details_text_view_style"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:text='@{String.valueOf(viewModel.userMutableLiveData.following) ?? "N/A"}'
+            app:layout_constraintStart_toEndOf="@+id/following_text_view"
+            app:layout_constraintTop_toTopOf="@+id/following_text_view" />
+
+        <ImageView
+            android:id="@+id/web_image_view"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="@dimen/big_margin"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_link" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -27,6 +27,8 @@ data class User(
     val following: Int?,
     @Json(name = "html_url")
     val htmlUrl: String?,
-    val username: String?,
-    val avatarUrl: String?
+    @Json(name = "avatar_url")
+    var avatarUrl: String?,
+    @Json(name = "login")
+    var username: String?
 ): Parcelable

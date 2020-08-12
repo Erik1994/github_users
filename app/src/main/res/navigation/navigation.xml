@@ -14,7 +14,11 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.githubusers.ui.details.DetailsFragment"
-        android:label="@string/title_details_fragment" />
+        android:label="@string/title_details_fragment" >
+        <argument
+            android:name="detailsUser"
+            app:argType="com.example.githubusers.data.Users" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.githubusers.ui.about.AboutFragment"

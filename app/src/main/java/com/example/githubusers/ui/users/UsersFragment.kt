@@ -9,11 +9,13 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.githubusers.R
 import com.example.githubusers.databinding.FragmentUsersBinding
 import com.example.githubusers.network.ApiHelper
 import com.example.githubusers.network.enum.Status
 import com.google.android.material.appbar.AppBarLayout
+import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -54,7 +56,16 @@ class UsersFragment : Fragment() {
         // Giving the binding access to the UsersViewModel
         //val viewModelFactory = UsersViewModelFactory(ApiHelper(UsersApi.getRerofitService()))
         binding.viewModel = model//ViewModelProvider(this, viewModelFactory).get(UsersViewModel::class.java)
-        binding.userRecyclerView.adapter = PhotoGridAdapter()
+        binding.userRecyclerView.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
+            model.naviGateToDetailsScreen(it)
+        })
+
+        model.navigateToDetailsMutable.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                this.findNavController().navigate(UsersFragmentDirections.actionUsersFragmentToDetailsFragment(it))
+                model.navigateToDetailsScreenComplete()
+            }
+        })
         bindData()
         coordinateMotion(view)
     }

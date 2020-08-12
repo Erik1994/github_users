@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.githubusers.data.Users
 import com.example.githubusers.databinding.GridItemBinding
 
-class PhotoGridAdapter(): androidx.recyclerview.widget.ListAdapter<Users, PhotoGridAdapter.ViewHolder>(DiffUtilCallBack)  {
+class PhotoGridAdapter(private val onClickListener: OnClickListener): androidx.recyclerview.widget.ListAdapter<Users, PhotoGridAdapter.ViewHolder>(DiffUtilCallBack)  {
 
     companion object DiffUtilCallBack: DiffUtil.ItemCallback<Users>() {
         override fun areItemsTheSame(oldItem: Users, newItem: Users): Boolean {
@@ -20,23 +20,27 @@ class PhotoGridAdapter(): androidx.recyclerview.widget.ListAdapter<Users, PhotoG
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoGridAdapter.ViewHolder {
         return ViewHolder(GridItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = getItem(position)
-        holder.bind(user)
+        holder.bind(user, onClickListener)
     }
 
 
 
     class ViewHolder(var binding: GridItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: Users) {
+        fun bind(user: Users, clickListener: OnClickListener) {
             binding.users = user
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
     }
 
+    class OnClickListener(val clickListener: (Users) -> Unit) {
+        fun onClick(users:Users) = clickListener(users)
+    }
 
 }

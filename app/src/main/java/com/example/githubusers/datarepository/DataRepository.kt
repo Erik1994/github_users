@@ -9,5 +9,6 @@ import kotlinx.coroutines.Dispatchers
 class DataRepository(private val apiHelper: ApiHelper) {
 
     suspend fun getUsers() = apiHelper.getUsers()
+    suspend fun getUser(login: String) = apiHelper.getUser(login)
 
 }
