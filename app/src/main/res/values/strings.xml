@@ -12,7 +12,7 @@
     <string name="github">Github</string>
     <string name="users">Users</string>
 
-    <string name="share_success_text">This "Github Users" App written by E.A.</string>
+    <string name="share_success_text">This "Github Users" App written by Erik Antonynan for educational purposes. My linkedIn profile url: https://www.linkedin.com/in/erik-antonyan/</string>
 
     <string name="user_name">Username: </string>
     <string name="user_login">Login: </string>
