@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
     app:startDestination="@id/usersFragment">
 
     <fragment
@@ -18,9 +20,21 @@
         <argument
             android:name="detailsUser"
             app:argType="com.example.githubusers.data.Users" />
+        <action
+            android:id="@+id/action_detailsFragment_to_githubPage"
+            app:destination="@id/githubPage" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.githubusers.ui.about.AboutFragment"
         android:label="@string/title_about_fragment" />
+    <fragment
+        android:id="@+id/githubPage"
+        android:name="com.example.githubusers.ui.webview.GithubPageFragment"
+        android:label="fragment_github_page"
+        tools:layout="@layout/fragment_github_page" >
+        <argument
+            android:name="webUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>

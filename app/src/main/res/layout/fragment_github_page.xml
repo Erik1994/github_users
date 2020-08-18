@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.webview.GithubPageFragment">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.githubusers.ui.webview.GithubPageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:webUrl="@{viewModel.webUrlMutableLiveData}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

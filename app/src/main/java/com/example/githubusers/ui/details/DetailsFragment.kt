@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.githubusers.R
 import com.example.githubusers.data.Users
 import com.example.githubusers.databinding.FragmentDetailsBinding
@@ -71,8 +72,13 @@ class DetailsFragment : Fragment() {
                 Status.ERROR -> print(it.message)
                 Status.SUCCESS -> model.setUser(it.data)
             }
+        })
 
-
+        model.webUrlLiveData.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                this.findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToGithubPage(it))
+                model.navigateToGithubPageComlate()
+            }
         })
     }
 }

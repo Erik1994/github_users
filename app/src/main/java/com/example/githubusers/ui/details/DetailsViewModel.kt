@@ -17,6 +17,7 @@ class DetailsViewModel(private val users: Users, private val dataRepository: Dat
     ViewModel() {
     private val _userResourceMutableLiveData = MutableLiveData<Resource<User>>()
     private val _userMutableLiveData = MutableLiveData<User>()
+    private val _webUrlMutableLiveData = MutableLiveData<String>()
 
     val userResourceMutableLiveData: LiveData<Resource<User>>
         get() = _userResourceMutableLiveData
@@ -24,27 +25,41 @@ class DetailsViewModel(private val users: Users, private val dataRepository: Dat
     val userMutableLiveData: LiveData<User>
         get() = _userMutableLiveData
 
+    val webUrlLiveData: LiveData<String>
+        get() = _webUrlMutableLiveData
+
     init {
-        val login  = users.username
+        val login = users.username
         login?.let {
             getUserData(it)
         }
     }
 
+
     fun setUser(user: User?) {
         _userMutableLiveData.value = user
     }
 
+    fun navigateToGithubPage(webUrl: String) {
+        _webUrlMutableLiveData.value = webUrl
+    }
+
+    fun navigateToGithubPageComlate() {
+        _webUrlMutableLiveData.value = null
+    }
+
+
+
     private fun getUserData(login: String) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-               try {
-                   _userResourceMutableLiveData.postValue(Resource(Status.LOADING, null, null))
-                   val user = dataRepository.getUser(login)
-                   _userResourceMutableLiveData.postValue(Resource(Status.SUCCESS, user, null))
-               } catch (e: Throwable) {
-                   _userResourceMutableLiveData.postValue(Resource(Status.ERROR, null, e.message))
-               }
+                try {
+                    _userResourceMutableLiveData.postValue(Resource(Status.LOADING, null, null))
+                    val user = dataRepository.getUser(login)
+                    _userResourceMutableLiveData.postValue(Resource(Status.SUCCESS, user, null))
+                } catch (e: Throwable) {
+                    _userResourceMutableLiveData.postValue(Resource(Status.ERROR, null, e.message))
+                }
             }
         }
     }

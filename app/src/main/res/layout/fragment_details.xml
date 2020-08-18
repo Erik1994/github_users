@@ -209,6 +209,7 @@
             android:layout_height="50dp"
             android:layout_marginBottom="@dimen/big_margin"
             android:scaleType="centerCrop"
+            android:onClick="@{() -> viewModel.navigateToGithubPage(viewModel.userMutableLiveData.htmlUrl)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

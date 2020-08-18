@@ -1,5 +1,6 @@
 package com.example.githubusers
 
+import android.webkit.WebView
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -45,5 +46,12 @@ fun RecyclerView.bindRecyclerView(userList: List<Users>?) {
     userList?.let {
         val adapter = this.adapter as PhotoGridAdapter
         adapter.submitList(it)
+    }
+}
+
+@BindingAdapter("webUrl")
+fun WebView.setWebUrl(webUrl: String) {
+    webUrl.let {
+        this.loadUrl(it)
     }
 }
