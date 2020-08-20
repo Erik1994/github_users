@@ -13,7 +13,7 @@ buildscript {
         retrofit_coroutines_adapter_version = "0.9.2"
         lifecycle_version = "2.3.0-alpha06"
         glide_version = "4.9.0"
-        paging_version = "2.1.2"
+        paging_version = "3.0.0-alpha04"
         koin_version= "2.1.6"
         cardview_version = "1.0.0"
 

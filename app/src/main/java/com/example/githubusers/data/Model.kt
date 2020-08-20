@@ -32,3 +32,10 @@ data class User(
     @Json(name = "login")
     var username: String?
 ): Parcelable
+
+
+@Parcelize
+data class SearchUsers(
+    @Json(name = "items")
+    val items: List<Users>?
+): Parcelable

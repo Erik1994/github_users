@@ -38,7 +38,23 @@ class UsersViewModel(private val dataRepository: DataRepository) : ViewModel() {
         _navigateToDetailsMutable.value = null
     }
 
-    private fun getUsersData() {
+
+    fun searchUsers(userName: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    _usersResource.postValue(Resource(Status.LOADING, null, null))
+                    val searchUsers = dataRepository.searchUsers(userName)
+                    _usersResource.postValue(Resource(Status.SUCCESS, searchUsers.items, null))
+
+                } catch (t: Throwable) {
+                    _usersResource.postValue(Resource(Status.ERROR, null, t.message))
+                }
+            }
+        }
+    }
+
+    fun getUsersData() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {

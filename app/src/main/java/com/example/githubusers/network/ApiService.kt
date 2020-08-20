@@ -1,5 +1,6 @@
 package com.example.githubusers.network
 
+import com.example.githubusers.data.SearchUsers
 import com.example.githubusers.data.User
 import com.example.githubusers.data.Users
 import retrofit2.http.GET
@@ -12,6 +13,9 @@ interface ApiService {
 
     @GET("users")
     suspend fun getUsers(): List<Users>
+
+    @GET("search/users")
+    suspend fun searchUsers(@Query("q") username:String): SearchUsers
 
 
     @GET("users/{login}")

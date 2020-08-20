@@ -3,6 +3,7 @@ package com.example.githubusers.ui.users
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.app.ShareCompat
@@ -99,6 +100,31 @@ class UsersFragment : Fragment() {
         if (null == getShareIntent().resolveActivity(requireActivity().packageManager)) {
             menu.findItem(R.id.bar_share)?.isVisible = false
         }
+
+        val menuItem: MenuItem = menu.findItem(R.id.bar_search)
+        val searchView: SearchView = menuItem.actionView as SearchView
+        searchView.setOnQueryTextListener( object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if(query != null && query.isNotEmpty()) {
+                    searchUsers(query)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(newText == null || newText.isEmpty()) {
+                    model.getUsersData()
+                } else {
+                    searchUsers(newText)
+                }
+                return true
+            }
+
+        })
+    }
+
+    private fun searchUsers(userName: String) {
+        model.searchUsers(userName)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
