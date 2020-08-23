@@ -24,4 +24,10 @@
     <string name="loading_text">Loading…</string>
     <string name="network_connection_error">No Internet connection!</string>
 
+    <string name="about_text">
+        Hello!!. My name is Erik and I am an android developer with one year experience."\n"
+        This app has written for educational purposes. App is written in Kotlin language.
+        In app is used Navigation components, view and data binding, Motion layout.
+    </string>
+
 </resources>

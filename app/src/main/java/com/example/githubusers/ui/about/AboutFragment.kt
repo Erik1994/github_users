@@ -11,6 +11,7 @@ import com.example.githubusers.databinding.FragmentAboutBinding
 
 
 class AboutFragment : Fragment() {
+    private lateinit var binding: FragmentAboutBinding;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,9 +25,9 @@ class AboutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding: FragmentAboutBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_about, container, false
-        )
+        if(!this::binding.isInitialized) {
+            binding = FragmentAboutBinding.inflate(inflater)
+        }
 
         return binding.root
     }
