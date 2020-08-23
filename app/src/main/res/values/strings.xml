@@ -21,5 +21,7 @@
     <string name="user_followers">Followers: </string>
     <string name="user_following">Following: </string>
     <string name="not_available">N/A</string>
+    <string name="loading_text">Loading…</string>
+    <string name="network_connection_error">No Internet connection!</string>
 
 </resources>

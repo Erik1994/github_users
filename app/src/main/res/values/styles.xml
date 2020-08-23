@@ -24,4 +24,10 @@
         <item name="fontFamily">@font/belleza</item>
     </style>
 
+    <style name="loading_text_style">
+        <item name="android:textSize">@dimen/big_text_size</item>
+        <item name="android:textColor">@color/secondaryColor</item>
+        <item name="fontFamily">@font/belleza</item>
+    </style>
+
 </resources>

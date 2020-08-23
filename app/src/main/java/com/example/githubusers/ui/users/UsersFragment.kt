@@ -4,26 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.app.ShareCompat
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.githubusers.R
 import com.example.githubusers.databinding.FragmentUsersBinding
-import com.example.githubusers.network.ApiHelper
 import com.example.githubusers.network.enum.Status
+import com.example.githubusers.ui.base.BaseFragment
+import com.example.githubusers.util.ERROR_TYPE
+import com.example.githubusers.util.LOADING_TYPE
 import com.google.android.material.appbar.AppBarLayout
-import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class UsersFragment : Fragment() {
+class UsersFragment : BaseFragment() {
     private lateinit var binding: FragmentUsersBinding
 
-//    private val viewModel: UsersViewModel by lazy {
+    //    private val viewModel: UsersViewModel by lazy {
 //        ViewModelProvider(this, UsersViewModelFactory(ApiHelper(UsersApi.getRerofitService()))).get(
 //            UsersViewModel::class.java
 //        )
@@ -35,6 +33,14 @@ class UsersFragment : Fragment() {
         arguments?.let {
 
         }
+    }
+
+
+    override fun reloadData() {
+        super.reloadData()
+
+        model.getUsersData()
+
     }
 
     override fun onCreateView(
@@ -56,14 +62,16 @@ class UsersFragment : Fragment() {
         binding.lifecycleOwner = this
         // Giving the binding access to the UsersViewModel
         //val viewModelFactory = UsersViewModelFactory(ApiHelper(UsersApi.getRerofitService()))
-        binding.viewModel = model//ViewModelProvider(this, viewModelFactory).get(UsersViewModel::class.java)
+        binding.viewModel =
+            model//ViewModelProvider(this, viewModelFactory).get(UsersViewModel::class.java)
         binding.userRecyclerView.adapter = PhotoGridAdapter(PhotoGridAdapter.OnClickListener {
             model.naviGateToDetailsScreen(it)
         })
 
         model.navigateToDetailsMutable.observe(viewLifecycleOwner, Observer {
             it?.let {
-                this.findNavController().navigate(UsersFragmentDirections.actionUsersFragmentToDetailsFragment(it))
+                this.findNavController()
+                    .navigate(UsersFragmentDirections.actionUsersFragmentToDetailsFragment(it))
                 model.navigateToDetailsScreenComplete()
             }
         })
@@ -73,10 +81,13 @@ class UsersFragment : Fragment() {
 
     fun bindData() {
         model.usersResource.observe(viewLifecycleOwner, Observer {
-            when(it.status) {
-                Status.LOADING -> print("loading")
-                Status.SUCCESS -> model.setUsersList(it.data)
-                Status.ERROR -> print("error")
+            when (it.status) {
+                Status.LOADING -> openDialog(LOADING_TYPE)
+                Status.SUCCESS -> {
+                    model.setUsersList(it.data)
+                    closeDialog()
+                }
+                Status.ERROR -> openDialog(ERROR_TYPE)
             }
         })
     }
@@ -103,19 +114,17 @@ class UsersFragment : Fragment() {
 
         val menuItem: MenuItem = menu.findItem(R.id.bar_search)
         val searchView: SearchView = menuItem.actionView as SearchView
-        searchView.setOnQueryTextListener( object: SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if(query != null && query.isNotEmpty()) {
+                if (query != null && query.isNotEmpty()) {
                     searchUsers(query)
                 }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if(newText == null || newText.isEmpty()) {
+                if (newText == null || newText.isEmpty()) {
                     model.getUsersData()
-                } else {
-                    searchUsers(newText)
                 }
                 return true
             }

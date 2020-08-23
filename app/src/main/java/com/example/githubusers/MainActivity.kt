@@ -9,6 +9,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.githubusers.databinding.ActivityMainBinding
+import com.example.githubusers.util.NetworkUtil
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = binding.drawerLayout
         //NavigationUI.setupActionBarWithNavController(this, navController)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        NetworkUtil.initConnectivityManager(this)
+        NetworkUtil.registerNetworkCallbacks()
 
         // prevent nav gesture if not on start destination
         navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, args: Bundle? ->
@@ -36,4 +39,10 @@ class MainActivity : AppCompatActivity() {
         //return  navController.navigateUp()
         return NavigationUI.navigateUp(navController, drawerLayout)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        NetworkUtil.unRegisterNetworkCallbacks()
+    }
+
 }

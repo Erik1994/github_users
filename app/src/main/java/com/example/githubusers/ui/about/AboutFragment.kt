@@ -10,11 +10,6 @@ import com.example.githubusers.R
 import com.example.githubusers.databinding.FragmentAboutBinding
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AboutFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AboutFragment : Fragment() {
 
 

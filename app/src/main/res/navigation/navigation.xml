@@ -37,4 +37,14 @@
             android:name="webUrl"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/baseFragment"
+        android:name="com.example.githubusers.ui.base.BaseFragment"
+        android:label="fragment_base"
+        tools:layout="@layout/fragment_base" />
+    <fragment
+        android:id="@+id/errorLoadingDialogFragment"
+        android:name="com.example.githubusers.ui.dialog.ErrorLoadingDialogFragment"
+        android:label="fragment_dialog"
+        tools:layout="@layout/fragment_dialog" />
 </navigation>

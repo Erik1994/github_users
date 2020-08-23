@@ -1,36 +1,22 @@
 package com.example.githubusers.ui.details
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.example.githubusers.R
 import com.example.githubusers.data.Users
 import com.example.githubusers.databinding.FragmentDetailsBinding
-import com.example.githubusers.databinding.FragmentUsersBinding
 import com.example.githubusers.network.enum.Status
-import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.lifecycleScope
+import com.example.githubusers.ui.base.BaseFragment
+import com.example.githubusers.util.ERROR_TYPE
+import com.example.githubusers.util.LOADING_TYPE
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.androidx.viewmodel.scope.viewModel
 import org.koin.core.parameter.parametersOf
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class DetailsFragment : Fragment() {
+class DetailsFragment : BaseFragment() {
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var users: Users
     private lateinit var model: DetailsViewModel
@@ -68,9 +54,10 @@ class DetailsFragment : Fragment() {
     fun bindData() {
         model.userResourceMutableLiveData.observe(viewLifecycleOwner, Observer {
             when(it.status) {
-                Status.LOADING -> print("Loading")
-                Status.ERROR -> print(it.message)
-                Status.SUCCESS -> model.setUser(it.data)
+                Status.LOADING -> openDialog(LOADING_TYPE)
+                Status.ERROR -> openDialog(ERROR_TYPE)
+                Status.SUCCESS -> {model.setUser(it.data)
+                closeDialog()}
             }
         })
 
